@@ -1,4 +1,4 @@
-package com.hajba.booking.repo;
+package com.hajba.booking.db.repo;
 
 import org.springframework.util.StringUtils;
 

@@ -1,4 +1,4 @@
-package com.hajba.booking.dto;
+package com.hajba.booking.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

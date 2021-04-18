@@ -1,6 +1,6 @@
 package com.hajba.booking.service.journey;
 
-import com.hajba.booking.dto.Journey;
+import com.hajba.booking.model.dto.Journey;
 
 import java.time.LocalDate;
 import java.util.*;

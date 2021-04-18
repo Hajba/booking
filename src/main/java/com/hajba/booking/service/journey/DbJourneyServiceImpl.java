@@ -1,8 +1,7 @@
 package com.hajba.booking.service.journey;
 
-import com.hajba.booking.dto.Journey;
-import com.hajba.booking.repo.DataSource;
-import org.springframework.stereotype.Component;
+import com.hajba.booking.db.repo.DataSource;
+import com.hajba.booking.model.dto.Journey;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

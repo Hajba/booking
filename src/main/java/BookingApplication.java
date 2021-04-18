@@ -1,4 +1,4 @@
-import com.hajba.booking.dto.Journey;
+import com.hajba.booking.model.dto.Journey;
 import com.hajba.booking.service.ticket.TicketClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
