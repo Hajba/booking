@@ -4,8 +4,9 @@ import com.hajba.booking.db.entity.JourneyEntity;
 import com.hajba.booking.db.repo.JourneyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class TransactionalJourneyService {
@@ -14,7 +15,17 @@ public class TransactionalJourneyService {
     private JourneyRepository journeyRepository;
 
     @Transactional
-    public Long createJourney(final JourneyEntity entity){
-        return journeyRepository.create(entity);
+    public JourneyEntity createOrUpdate(final JourneyEntity entity){
+        return journeyRepository.createOrUpdate(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<JourneyEntity> findById(Long id, boolean withDependencies) {
+        final Optional<JourneyEntity> byId = journeyRepository.findById(id);
+        if (withDependencies && byId.isPresent()){
+            byId.get().getVehicle().getName();
+            byId.get().getStops().size();
+        }
+        return byId;
     }
 }

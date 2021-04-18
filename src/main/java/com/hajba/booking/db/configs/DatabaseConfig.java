@@ -44,7 +44,7 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean emf(DataSource dataSource){ // DataSource dataSource(){} @Bean used here
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("org.hillel.persistence.entity");
+        emf.setPackagesToScan("com.hajba.booking.db.entity");
         emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties properties = new Properties();
         properties.put("hibernate.dialect", PostgreSQL10Dialect.class.getName());
