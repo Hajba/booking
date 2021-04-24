@@ -14,11 +14,9 @@ public class BookingApplication {
 
         TicketClient ticketClient = context.getBean(TicketClient.class);
 
-        // Создадим транспортное средство поезд
         VehicleEntity trainVehicle = buildVehicle("Интерсити");
         trainVehicle = ticketClient.createOrUpdateVechicle(trainVehicle);
 
-        // Создадим маршрут с остановками
         JourneyEntity journey = buildJourney("Odessa", "Kiev", Instant.now(), Instant.now().plusSeconds(1000));
         journey.addStop(buildStop("Одесса-Главная", "Одесса", LocalDate.parse("1980-12-03"), "", 1D, 2D));
         journey.addStop(buildStop("Подольск", "Подольск", LocalDate.parse("1980-12-03"), "", 1D, 2D));
@@ -27,17 +25,24 @@ public class BookingApplication {
         journey.addStop(buildStop("Винница", "Винница", LocalDate.parse("1980-12-03"), "", 7D, 2D));
         journey.addStop(buildStop("Киев-Пасс.", "Киев", LocalDate.parse("1980-12-03"), "", 1D, 2D));
 
-        // укажем транспорт -> поезд
         journey.setVehicle(trainVehicle);
         journey = ticketClient.createOrUpdateJourney(journey);
 
-        // Укажем кол-во свободных мест для поезда
         trainVehicle.addSeatInfo(buildSeatInfo(journey, trainVehicle, 120));
         trainVehicle = ticketClient.createOrUpdateVechicle(trainVehicle);
 
-        // уменьшим кол-во мест в поезде
         trainVehicle.getSeatInfos().get(0).setFreeSeats(100);
         trainVehicle = ticketClient.createOrUpdateVechicle(trainVehicle);
+
+
+        trainVehicle.getSeatInfos().forEach(ticketClient::removeSeatInfo);
+
+        ticketClient.removeVehicle(trainVehicle);
+
+        StopEntity stop = journey.getStops().get(0);
+        ticketClient.removeStop(stop);
+
+        ticketClient.removeJourneyById(journey.getId());
 
     }
 

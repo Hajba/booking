@@ -4,8 +4,7 @@ import com.hajba.booking.db.entity.StopEntity;
 import com.hajba.booking.db.repo.StopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional; //TODO vokh check if need spring @Transactional
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TransactionalStopService {
@@ -15,5 +14,10 @@ public class TransactionalStopService {
 
     public StopEntity createOrUpdate(StopEntity stopEntity){
         return stopRepository.createOrUpdate(stopEntity);
+    }
+
+    @Transactional
+    public void remove(StopEntity stop) {
+        stopRepository.remove(stop);
     }
 }

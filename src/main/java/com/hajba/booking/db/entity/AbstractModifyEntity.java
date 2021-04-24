@@ -13,12 +13,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @MappedSuperclass
-public class AbstractModifyEntity<ID extends Serializable> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private ID id;
-
+public class AbstractModifyEntity<ID extends Serializable> extends AbstractEntity<ID>{
     @Column(name = "create_date")
     @CreationTimestamp
     private Instant createDate;

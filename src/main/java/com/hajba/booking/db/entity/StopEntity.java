@@ -3,6 +3,7 @@ package com.hajba.booking.db.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,5 +38,11 @@ public class StopEntity extends AbstractModifyEntity<Long> {
         if (journey == null) return;
         if (journeys == null) journeys = new ArrayList<>();
         journeys.add(journey);
+    }
+
+    public void removeAllJourneys(){
+        if (CollectionUtils.isEmpty(journeys)) return;
+        journeys.forEach(journeyEntity -> journeyEntity.getStops().remove(this));
+        this.journeys.clear();
     }
 }
