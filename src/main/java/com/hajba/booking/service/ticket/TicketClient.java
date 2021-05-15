@@ -5,7 +5,7 @@ import com.hajba.booking.db.entity.JourneyEntity;
 import com.hajba.booking.db.entity.SeatInfoEntity;
 import com.hajba.booking.db.entity.StopEntity;
 import com.hajba.booking.db.entity.VehicleEntity;
-import com.hajba.booking.model.dto.Journey;
+import com.hajba.booking.service.QueryType;
 import com.hajba.booking.service.journey.JourneyService;
 import com.hajba.booking.service.journey.TransactionalJourneyService;
 import com.hajba.booking.service.seatInfo.TransactionalSeatInfoService;
@@ -15,13 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,4 +96,30 @@ public class TicketClient {
     public void removeStop(StopEntity stop) {
         stopService.remove(stop);
     }
+
+    public Collection<VehicleEntity> findVehicleByIds(Long... ids){
+        return vehicleService.findByIds(ids);
+    }
+
+    public VehicleEntity findVehicleById(Long id, boolean withDep){
+        return vehicleService.findById(id, withDep).get();
+    }
+
+    public Collection<VehicleEntity> findAllByName(String name){
+        return vehicleService.findAllByName(name);
+    }
+
+    public Collection<JourneyEntity> findAllJourneys(QueryType queryType){
+        return journeyService.findAll(queryType);
+    }
+    public Collection<SeatInfoEntity> findAllSeatInfos(QueryType queryType){
+        return seatInfoService.findAll(queryType);
+    }
+    public Collection<StopEntity> findAllStops(QueryType queryType){
+        return stopService.findAll(queryType);
+    }
+    public Collection<VehicleEntity> findAllVehicles(QueryType queryType){
+        return vehicleService.findAll(queryType);
+    }
+
 }

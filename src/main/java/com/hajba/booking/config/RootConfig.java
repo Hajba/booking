@@ -1,8 +1,9 @@
 package com.hajba.booking.config;
 
-import com.hajba.booking.service.journey.InMemoryJourneyServiceImpl;
+
+import com.hajba.booking.service.old.journey.InMemoryJourneyServiceImpl;
 import com.hajba.booking.service.journey.JourneyService;
-import com.hajba.booking.service.journey.StubJourneyServiceImpl;
+import com.hajba.booking.service.old.journey.StubJourneyServiceImpl;
 import com.hajba.booking.service.ticket.TicketClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

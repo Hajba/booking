@@ -1,5 +1,6 @@
 package com.hajba.booking.db.repo;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface GenericRepository<E, ID> {
@@ -11,4 +12,6 @@ public interface GenericRepository<E, ID> {
     void removeById(ID id);
 
     void remove(E entity);
+
+    Collection<E> findAll();
 }

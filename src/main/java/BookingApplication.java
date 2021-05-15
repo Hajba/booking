@@ -1,5 +1,6 @@
 import com.hajba.booking.db.entity.*;
 import com.hajba.booking.db.entity.enums.DirectionType;
+import com.hajba.booking.service.QueryType;
 import com.hajba.booking.service.ticket.TicketClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -34,15 +35,16 @@ public class BookingApplication {
         trainVehicle.getSeatInfos().get(0).setFreeSeats(100);
         trainVehicle = ticketClient.createOrUpdateVechicle(trainVehicle);
 
-
-        trainVehicle.getSeatInfos().forEach(ticketClient::removeSeatInfo);
-
-        ticketClient.removeVehicle(trainVehicle);
-
-        StopEntity stop = journey.getStops().get(0);
-        ticketClient.removeStop(stop);
-
-        ticketClient.removeJourneyById(journey.getId());
+        System.out.println("\nQueryType.HQL");
+        System.out.println(ticketClient.findAllJourneys(QueryType.HQL));
+        System.out.println("\nQueryType.NATIVE");
+        System.out.println(ticketClient.findAllJourneys(QueryType.NATIVE));
+        System.out.println("\nQueryType.NAMED");
+        System.out.println(ticketClient.findAllJourneys(QueryType.NAMED));
+        System.out.println("\nQueryType.CRITERIA");
+        System.out.println(ticketClient.findAllJourneys(QueryType.CRITERIA));
+        //System.out.println("\nQueryType.STORED_PROCEDURE");
+        //System.out.println(ticketClient.findAllJourneys(QueryType.STORED_PROCEDURE));
 
     }
 

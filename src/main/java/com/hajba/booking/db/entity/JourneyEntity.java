@@ -17,13 +17,16 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "journey", uniqueConstraints = @UniqueConstraint(name = "uniq_station_from_to",
-        columnNames = {"station_from", "station_to"}))
+@Table(name = "journey"/*, uniqueConstraints = @UniqueConstraint(name = "uniq_station_from_to",
+        columnNames = {"station_from", "station_to"})*/)
 @Getter
 @Setter
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
+@NamedQueries(value = {
+        @NamedQuery(name = "findAllJourneys", query = "select v from JourneyEntity v")
+})
 public class JourneyEntity extends AbstractModifyEntity<Long> {
 
     @Column(name = "station_from", length = 50, nullable = false, columnDefinition = "varchar(100) default 'NONE'")
@@ -79,7 +82,7 @@ public class JourneyEntity extends AbstractModifyEntity<Long> {
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +
                 ", direction=" + direction +
-                ", vehicle=" + vehicle +
+                //", vehicle=" + vehicle +
                 '}';
     }
 }
