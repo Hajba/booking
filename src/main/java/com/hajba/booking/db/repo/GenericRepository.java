@@ -13,5 +13,4 @@ public interface GenericRepository<E, ID> {
 
     void remove(E entity);
 
-    Collection<E> findAll();
 }

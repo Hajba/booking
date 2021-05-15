@@ -5,7 +5,10 @@ import com.hajba.booking.db.repo.VehicleRepository;
 import com.hajba.booking.service.AbstractTransactionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -16,12 +19,18 @@ public class TransactionalVehicleService extends AbstractTransactionalService<Ve
     private final VehicleRepository vehicleRepository;
 
     @Autowired
+    private TransactionTemplate transactionTemplate;
+
+    @Autowired
+    private PlatformTransactionManager platformTransactionManager;
+
+    @Autowired
     public TransactionalVehicleService(VehicleRepository vehicleRepository) {
         super(vehicleRepository);
         this.vehicleRepository = vehicleRepository;
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public VehicleEntity createOrUpdate(VehicleEntity vehicle){
         return vehicleRepository.createOrUpdate(vehicle);
     }
@@ -52,12 +61,17 @@ public class TransactionalVehicleService extends AbstractTransactionalService<Ve
     }
 
     @Transactional(readOnly = true)
-    public Collection<VehicleEntity> findAll(){
-        return vehicleRepository.findAll();
+    public Collection<VehicleEntity> findAllByName(String name){
+        return vehicleRepository.findByName(name);
     }
 
     @Transactional(readOnly = true)
-    public Collection<VehicleEntity> findAllByName(String name){
-        return vehicleRepository.findByName(name);
+    public Collection<VehicleEntity> findWithMinFreeSeats(){
+        return vehicleRepository.findWithMinFreeSeats();
+    }
+
+    @Transactional(readOnly = true)
+    public Collection<VehicleEntity> findWithMaxFreeSeats(){
+        return vehicleRepository.findWithMaxFreeSeats();
     }
 }
